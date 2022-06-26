@@ -1,25 +1,26 @@
 package org.xpdojo.bank;
 
+import org.xpdojo.utils.Currency;
+
 import java.util.Date;
 
 public class Account {
     public String accountNo;
     public String accountName;
-    public double balance;
-    public Date accountDate;
+    public Money savings;
     public String transactionType;
+    public Currency currencyType;
 
-
-    public void currentBalance( String transactionType, double amount){
-        if( ! transactionType.equalsIgnoreCase("DEPOSIT")){
-            WithDrawal withdraw = new WithDrawal();
-            this.balance = withdraw.balance( amount, this.balance);
-        }
-        Deposit deposit = new Deposit();
-        this.balance = deposit.balance( amount, this.balance);
-
+    public Account( String accountNo, String accountName, double currentAmount, Currency currencyType,
+                    String transactionType, Date transactionDate ){
+        this.accountNo = accountNo;
+        this.accountName = accountName;
+        this.savings = new Money( currentAmount, currencyType, transactionType, transactionDate);
     }
 
-
+    public void addAmount( double newAmount, Currency currency, String transactionType, Date transactionDate){
+        System.out.println("Current Blance in acount "+this.savings.balance);
+        this.savings = new Money( this.savings.balance , newAmount, currency, transactionType, transactionDate);
+    }
 
 }
